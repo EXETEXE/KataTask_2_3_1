@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h3>Add user</h3>
+<form method="post" th:action="@{/}" th:object="${user}">
+    <input id="name" placeholder="Enter First Name" required type="text" th:field="*{name}"/>
+    <input id="lastName" placeholder="Enter Last Name" required type="text" th:field="*{lastName}"/>
+    <input id="age" placeholder="Enter age" required type="text" th:field="*{age}"/>
+    </div>
+    <input type="submit" value="Add user">
+</form>
+
+<h3>All users:</h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Delete user</th>
+        <th scope="col">Update user</th>
+
+    </tr>
+    </thead>
+
+    <tr th:each="user : ${users}"
+        th:style="'font-weight: bold;'">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+
+        <td>
+            <form method="post" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}">
+                <input id="nameToUpdate" placeholder="Enter First Name" required type="text" th:field="*{name}"/>
+                <input id="lastNameToUpdate" placeholder="Enter Last Name" required type="text" th:field="*{lastName}"/>
+                <input id="ageToUpdate" placeholder="Enter age" required type="text" th:field="*{age}"/>
+                </div>
+                <input type="submit" value="Update user">
+            </form>
+            >
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
