@@ -2,13 +2,12 @@ package ru.exetexe.kata.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.exetexe.kata.models.User;
 import ru.exetexe.kata.services.UsersService;
+import ru.exetexe.kata.services.UsersServiceImpl;
 
 import javax.validation.Valid;
 
@@ -19,7 +18,7 @@ public class UsersController {
     private final UsersService usersService;
 
     @Autowired
-    public UsersController(UsersService usersService) {
+    public UsersController(UsersServiceImpl usersService) {
         this.usersService = usersService;
     }
 
@@ -45,7 +44,7 @@ public class UsersController {
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {
 
         usersService.delete(id);
@@ -53,12 +52,10 @@ public class UsersController {
         return "redirect:/";
     }
 
-    @PostMapping("/update/{id}")
+    @PatchMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id, User user) {
 
         usersService.update(id, user);
         return "redirect:/";
     }
-
-
 }
